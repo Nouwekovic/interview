@@ -1,0 +1,26 @@
+.cashRegisterWrapper{
+    width: 22em;
+}
+
+input.currency, input.summary {
+    max-width: 5rem;
+    margin: 0.5rem;
+}
+
+input.currency {
+    margin-right: 2px !important;
+}
+
+input.summary {
+    margin-right: 2px !important;
+}
+
+.summary-input-group {
+    margin-right: 20px;
+}
+
+.summaryWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
