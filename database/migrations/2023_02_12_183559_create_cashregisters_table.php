@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('cashregisters', function (Blueprint $table) {
             $table->id();
             $table->foreignId('shop_id');
-            $table->jsonb('data')->nullable();
+            $table->json('data')->nullable();
             $table->timestamps();
             $table->foreign('shop_id')
                 ->references('id')->on('shops')
