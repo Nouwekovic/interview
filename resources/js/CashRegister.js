@@ -8,17 +8,15 @@ export default class CashRegister {
         }
         if (localStorage.getItem('lastCashRegisterState') !== null) {
             let lastItems = JSON.parse(localStorage.getItem('lastCashRegisterState'));
+
             $.each(lastItems, (index,value) => {
                 if (index === 'cashRegisterId') {
-                    this.lastCashRegisterId = value;
+                    this.lastCashRegisterId = parseInt(value);
                 } else {
-                    this.lastShopId = value;
+                    this.lastShopId = parseInt(value);
                 }
             });
         }
-
-        console.log(this.lastShopId)
-        console.log(this.lastCashRegisterId)
         this.currentCurrency = '';
 
         this.czkNominalValues = [5000, 2000, 1000, 200, 100, 50, 20 , 10, 5, 2 , 1];
@@ -117,16 +115,23 @@ export default class CashRegister {
 
         this.summaryWrapper.append(this.subtotal, this.bank, this.reserve, this.total);
 
+        this.shopsList = $('#shops');
+
         $.each(this.shops, function (i, item) {
             $('#shops').append($('<option></option>', {
                 value: item.id,
                 text : 'Obchod ' + item.id
             }));
+            if (this.lastShopId !== null) {
+                $('#shops option[value='+ this.lastShopId + ']').val(this.lastShopId).trigger('change');
+            }
         });
+
+
 
         this._axiosGetCashRegisters($('#shops').find(":selected").val());
 
-        $('#shops').on('change', (event) => {
+        this.shopsList.on('change', (event) => {
             this._axiosGetCashRegisters(event.target.value);
         });
 
@@ -155,21 +160,35 @@ export default class CashRegister {
                         text: 'Pokladna ' + i++
                     }));
                 })
-                localStorage.setItem('lastCashRegisterState', JSON.stringify({
-                    'cashRegisterId': $('#cash-registers').find(":selected").val(),
-                    'shopId': $('#shops').find(":selected").val(),
-                }));
+                this._saveLastCashRegisterIds();
+                if (this.lastCashRegisterId !== null) {
+                    $('#cash-registers').val(this.lastCashRegisterId).trigger('change');
+                }
+                $('#cash-registers').find(":selected").trigger('change');
             })
             .catch((error) => {
-                console.log(error.res.data);
+                console.log(error);
             }).finally(() => {
 
         });
     }
 
+    _saveLastCashRegisterIds() {
+        localStorage.setItem('lastCashRegisterState', JSON.stringify({
+            'shopId': $('#shops').find(":selected").val(),
+            'cashRegisterId': $('#cash-registers').find(":selected").val(),
+        }));
+    }
+
     _axiosGetCashRegisterData(cashRegisterId) {
         axios.get('/api/cashregisters/' + cashRegisterId)
             .then((res) => {
+                if (res.data[0] === null) {
+                    $('.currency[data-multiplier]').val(0).trigger('change');
+                    $('input[data-date]').val('');
+                    return;
+                }
+
                 let parsedData = null;
                 if (this.currentCurrency === 'CZK') {
                     parsedData = JSON.parse(res.data[0].CZK);
@@ -177,22 +196,19 @@ export default class CashRegister {
                 else {
                     parsedData = JSON.parse(res.data[0].EUR);
                 }
+
                 let time = res.data[0].time_modified ;
                 $('input[data-date]').val(time);
                 $.each(parsedData, (index, value) => {
                     let multiplierEl = $('input[data-nominal-value = '+ index + ']');
-                    let productEl = $('input[data-product-nominal-value = '+ index + ']');
                     if (index === 'reserve') {
                         $(this.reserve).val(value);
                     }
                     else if (index === 'bank') {
                         $(this.bank).val(value);
                     } else {
-                        multiplierEl.val(value);
+                        multiplierEl.val(value).trigger('change');
                     }
-                    let inputValue = parseInt(multiplierEl.val());
-                    let productValue = $.isNumeric(inputValue) ?  inputValue * parseFloat(index) : 0;
-                    productEl.val(productValue);
                     let sum = this._getTotalSum();
                     this.subtotal.val(parseFloat(sum));
                     this._setTotalComputedValue(this.reserve, this.bank, this.total, sum);
@@ -200,6 +216,7 @@ export default class CashRegister {
                 })
             })
             .catch((error) => {
+                console.log(error);
             }).finally(() => {
 
         });
