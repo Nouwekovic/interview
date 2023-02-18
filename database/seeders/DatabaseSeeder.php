@@ -25,6 +25,6 @@ class DatabaseSeeder extends Seeder
                 'shop_id' => fake()->numberBetween(1,3)
             ]);
         }
-         Users::factory(3)->create();
+         Users::factory(10)->create();
     }
 }

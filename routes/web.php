@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CashRegisterController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\UsersCashRegisterController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +26,5 @@ Route::get('/api/cashregisters/{id}', [CashRegisterController::class, 'show']);
 Route::put('/api/cashregisters/up/{id}', [CashRegisterController::class, 'update']);
 Route::get('/api/shops/{id}', [ShopController::class, 'show']);
 Route::get('/api/shops/', [ShopController::class, 'index']);
+Route::get('/api/users/', [UsersController::class, 'index']);
+Route::put('/api/users-cashregisters/{userId}/{cashRegisterId}', [UsersCashRegisterController::class, 'store']);

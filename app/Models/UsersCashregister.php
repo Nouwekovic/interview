@@ -11,9 +11,16 @@ class UsersCashregister extends Model
     protected $fillable = [
         'user_id',
         'cash_register_id',
-        'total',
-        'reserve',
-        'bank'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(Users::class);
+    }
+
+    public function cashRegisters()
+    {
+        return $this->belongsToMany(CashRegister::class);
+    }
 
 }
