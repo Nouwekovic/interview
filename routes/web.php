@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\CashRegisterController;
-use App\Http\Controllers\ShopController;
-use App\Http\Controllers\UsersCashRegisterController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\BrandsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,12 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('cashregister');
-});
+})->name('cashregister');
 
-Route::get('/api/cashregisters/fk/{foreignKey}', [CashRegisterController::class, 'index']);
-Route::get('/api/cashregisters/{id}', [CashRegisterController::class, 'show']);
-Route::put('/api/cashregisters/up/{id}', [CashRegisterController::class, 'update']);
-Route::get('/api/shops/{id}', [ShopController::class, 'show']);
-Route::get('/api/shops/', [ShopController::class, 'index']);
-Route::get('/api/users/', [UsersController::class, 'index']);
-Route::put('/api/users-cashregisters/{userId}/{cashRegisterId}', [UsersCashRegisterController::class, 'store']);
+Route::get('/brands', [BrandsController::class, 'index'])->name('brands');
+Route::get('/brands/{id}/{lang?}', [BrandsController::class, 'show'])->name('brands.show');
+Route::post('/brands/update/{id}', [BrandsController::class, 'update'])->name('brands.update');
+
+
+

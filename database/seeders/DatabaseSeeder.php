@@ -3,10 +3,12 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Brands;
 use App\Models\Cashregister;
 use App\Models\Shop;
 use App\Models\Users;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,6 +27,18 @@ class DatabaseSeeder extends Seeder
                 'shop_id' => fake()->numberBetween(1,3)
             ]);
         }
-         Users::factory(10)->create();
+
+        $json = file_get_contents(base_path("database/data/companies.json"));
+
+        $brands = json_decode($json);
+
+        foreach ($brands as $value)
+        {
+            Brands::factory()->create([
+                'name' => $value,
+                'description' => null
+            ]);
+        }
+
     }
 }

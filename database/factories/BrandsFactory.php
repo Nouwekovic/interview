@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Users;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Users>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Brands>
  */
-class UsersFactory extends Factory
+class BrandsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +17,7 @@ class UsersFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name()
+            //
         ];
     }
 }

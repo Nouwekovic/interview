@@ -18,10 +18,6 @@ export default class CashRegister {
         this._axiosInit();
     }
 
-    _setUsers(users) {
-        this.users = users;
-    }
-
     _setShops(shops) {
         this.shops = shops;
     }
@@ -65,7 +61,6 @@ export default class CashRegister {
         $('.summary').wrap('<div class="summary-input-group"></div>')
     }
     async _axiosInit() {
-        await this._axiosGetUsers();
         await axios.get('api/shops')
             .then((res) => {
                 this._setShops(res.data);
@@ -92,7 +87,6 @@ export default class CashRegister {
 
         this.selectsWrapper = $('<div></div>').addClass('selectsWrapper');
         this.shopsSelect = $('<select id="shops"></select>');
-        this.usersSelect = $('<select id="users"></select>');
 
         this.headingsWrapper = $('<div></div>').addClass('headingsWrapper');
         this.cashRegisterNo = $('<select id="cash-registers"></select>').addClass('heading');
@@ -110,7 +104,7 @@ export default class CashRegister {
         this.saveRegister = $('<input/>').addClass('submitButton').attr('type', "button").val("Uložit");
 
         this.submitWrapper.append(this.dateCreated ,this.saveRegister);
-        this.selectsWrapper.append(this.shopsSelect, this.usersSelect)
+        this.selectsWrapper.append(this.shopsSelect);
         this.cashRegisterFormWrapper.append(this.selectsWrapper, this.headingsWrapper);
         this.headingsWrapper.append(this.cashRegisterNo, this.bankNoteValue, this.currencySwitch);
 
@@ -240,14 +234,6 @@ export default class CashRegister {
             });
     }
 
-    async _axiosGetUsers() {
-            await axios.get('api/users')
-                .then((res) => {
-                    this._setUsers(res.data);
-                    console.log(res.data);
-                })
-    }
-
     _getLastVisited () {
         let lastItems = JSON.parse(localStorage.getItem('lastCashRegisterState'));
         $.each(lastItems, (index,value) => {
@@ -323,14 +309,6 @@ export default class CashRegister {
                      $('#flash').remove();
                  }, 1000)
              }).catch(error => console.log(error.response.data.errors))
-
-         /*axios.put('/api/cashregisters/up/' + cashRegisterId, {data: jsonData})
-             .then(response => {
-                 $('#app').prepend('<span id="flash">Uloženo</span>');
-                 setTimeout(() => {
-                     $('#flash').remove();
-                 }, 1000)
-             }).catch(error => console.log(error.response.data.errors))*/
      }
 
     _setTotalComputedValue(reserve, bank, total, sum) {
