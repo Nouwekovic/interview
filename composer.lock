@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6e093216ac2206161041db4c22194c8",
+    "content-hash": "10f032c5edf4cf540d0f8bb81c540b7d",
     "packages": [
         {
             "name": "brick/math",
@@ -61,6 +61,85 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "capevace/laravel-gpt",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Capevace/laravel-gpt.git",
+                "reference": "1c908db33ce1835cf419869542ce95a4867cdd56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Capevace/laravel-gpt/zipball/1c908db33ce1835cf419869542ce95a4867cdd56",
+                "reference": "1c908db33ce1835cf419869542ce95a4867cdd56",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.0",
+                "orhanerday/open-ai": "^3.2",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.13.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^6.0",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Capevace\\GPT\\GPTServiceProvider"
+                    ],
+                    "aliases": {
+                        "GPT": "Capevace\\GPT\\Facades\\GPT"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Capevace\\GPT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukas Mateffy",
+                    "email": "github@mateffy.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel package for interacting with OpenAI's GPT-3.",
+            "homepage": "https://github.com/capevace/laravel-gpt",
+            "keywords": [
+                "GPT-3",
+                "ai",
+                "capevace",
+                "gpt",
+                "language-model",
+                "laravel",
+                "llm",
+                "openai",
+                "text-generation"
+            ],
+            "support": {
+                "issues": "https://github.com/Capevace/laravel-gpt/issues",
+                "source": "https://github.com/Capevace/laravel-gpt/tree/v1.0.1"
+            },
+            "time": "2022-12-13T18:04:33+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -2138,40 +2217,33 @@
             "time": "2023-02-08T01:06:31+00:00"
         },
         {
-            "name": "openai-php/client",
-            "version": "v0.3.1",
+            "name": "orhanerday/open-ai",
+            "version": "3.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/openai-php/client.git",
-                "reference": "8c67360fca906e2f613f11e1839e32905a2ed28c"
+                "url": "https://github.com/orhanerday/open-ai.git",
+                "reference": "04abf7a4b651556a6af900475de7bfeab75ec1d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openai-php/client/zipball/8c67360fca906e2f613f11e1839e32905a2ed28c",
-                "reference": "8c67360fca906e2f613f11e1839e32905a2ed28c",
+                "url": "https://api.github.com/repos/orhanerday/open-ai/zipball/04abf7a4b651556a6af900475de7bfeab75ec1d5",
+                "reference": "04abf7a4b651556a6af900475de7bfeab75ec1d5",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "^7.5.0",
-                "php": "^8.1.0"
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7.4"
             },
             "require-dev": {
-                "laravel/pint": "^1.4.1",
-                "nunomaduro/collision": "^7.0.0",
-                "pestphp/pest": "^2.0.0",
-                "pestphp/pest-plugin-arch": "^2.0.0",
-                "pestphp/pest-plugin-mock": "^2.0.0",
-                "phpstan/phpstan": "^1.9.16",
-                "rector/rector": "^0.14.8",
-                "symfony/var-dumper": "^6.2.5"
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "pestphp/pest": "^1.20",
+                "spatie/ray": "^1.28"
             },
             "type": "library",
             "autoload": {
-                "files": [
-                    "src/OpenAI.php"
-                ],
                 "psr-4": {
-                    "OpenAI\\": "src/"
+                    "Orhanerday\\OpenAi\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2180,128 +2252,28 @@
             ],
             "authors": [
                 {
-                    "name": "Nuno Maduro",
-                    "email": "enunomaduro@gmail.com"
+                    "name": "Orhan Erday",
+                    "email": "orhanerday@gmail.com",
+                    "role": "Developer"
                 }
             ],
-            "description": "OpenAI PHP is a supercharged PHP API client that allows you to interact with the Open AI API",
+            "description": "OpenAI GPT-3 Api Client in PHP",
+            "homepage": "https://github.com/orhanerday/open-ai",
             "keywords": [
-                "GPT-3",
-                "api",
-                "client",
-                "codex",
-                "dall-e",
-                "language",
-                "natural",
-                "openai",
-                "php",
-                "processing",
-                "sdk"
+                "open-ai",
+                "orhanerday"
             ],
             "support": {
-                "issues": "https://github.com/openai-php/client/issues",
-                "source": "https://github.com/openai-php/client/tree/v0.3.1"
+                "issues": "https://github.com/orhanerday/open-ai/issues",
+                "source": "https://github.com/orhanerday/open-ai/tree/3.5"
             },
             "funding": [
                 {
-                    "url": "https://www.paypal.com/paypalme/enunomaduro",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/nunomaduro",
+                    "url": "https://github.com/orhanerday",
                     "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/nunomaduro",
-                    "type": "patreon"
                 }
             ],
-            "time": "2023-02-07T21:22:36+00:00"
-        },
-        {
-            "name": "openai-php/laravel",
-            "version": "v0.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/openai-php/laravel.git",
-                "reference": "af86dc948e0aade4a6630e8a51f2101f6fafa50a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/openai-php/laravel/zipball/af86dc948e0aade4a6630e8a51f2101f6fafa50a",
-                "reference": "af86dc948e0aade4a6630e8a51f2101f6fafa50a",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "^9.46.0|^10.0",
-                "openai-php/client": "^0.3.0",
-                "php": "^8.1.0"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.3",
-                "pestphp/pest": "^2.0.0",
-                "pestphp/pest-plugin-arch": "^2.0.0",
-                "pestphp/pest-plugin-mock": "^2.0.0",
-                "phpstan/phpstan": "^1.9.6",
-                "symfony/var-dumper": "^6.2.3"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "OpenAI\\Laravel\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "OpenAI\\Laravel\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nuno Maduro",
-                    "email": "enunomaduro@gmail.com"
-                }
-            ],
-            "description": "OpenAI PHP for Laravel is a supercharged PHP API client that allows you to interact with the Open AI API",
-            "keywords": [
-                "GPT-3",
-                "api",
-                "client",
-                "codex",
-                "dall-e",
-                "language",
-                "laravel",
-                "natural",
-                "openai",
-                "php",
-                "processing",
-                "sdk"
-            ],
-            "support": {
-                "issues": "https://github.com/openai-php/laravel/issues",
-                "source": "https://github.com/openai-php/laravel/tree/v0.3.1"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.com/paypalme/enunomaduro",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/nunomaduro",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/nunomaduro",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2023-01-27T12:18:02+00:00"
+            "time": "2023-02-10T09:15:29+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -3042,6 +3014,66 @@
                 }
             ],
             "time": "2023-01-12T18:13:24+00:00"
+        },
+        {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.14.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "b477dd2f89d0751f0e51ffb3a70181f0bc7ab8df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/b477dd2f89d0751f0e51ffb3a70181f0bc7ab8df",
+                "reference": "b477dd2f89d0751f0e51ffb3a70181f0bc7ab8df",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.7|^8.0",
+                "pestphp/pest": "^1.22",
+                "phpunit/phpunit": "^9.5.24",
+                "spatie/pest-plugin-test-time": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.14.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-01-27T15:33:45+00:00"
         },
         {
             "name": "symfony/console",

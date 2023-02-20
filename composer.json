@@ -6,10 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "capevace/laravel-gpt": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
-        "laravel/tinker": "^2.7",
-        "openai-php/laravel": "^0.3.1"
+        "laravel/tinker": "^2.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

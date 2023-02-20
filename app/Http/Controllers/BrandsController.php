@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brands;
-use Illuminate\Contracts\Foundation\Application;
+use Capevace\GPT\GPTService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Redirector;
-use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Http\Request;
 
 class BrandsController extends Controller
 {
+
+    public function __construct(protected GPTService $gpt) {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -55,13 +57,14 @@ class BrandsController extends Controller
         $brand = Brands::where('id', $id)->get()->first();
         $maxId = Brands::max('id');
 
-        $result = ($brand->description && $lang === null) ? $brand->description : OpenAI::completions()->create([
-            'model' => 'text-davinci-003',
-            'prompt' => "Write about $brand->name in $lang language",
-            'max_tokens' => 350,
-        ]);
+        $result = ($brand->description && $lang === null) ? $brand->description : $this->gpt->generate(
+            "Write about $brand->name in $lang language",
+            model: 'text-davinci-003',
+            maxTokens: 350,
+            frequencyPenalty: 1.0,
+        );
 
-        $descriptionText = ($brand->description && $lang === null) ? $brand->description : $result['choices'][0]['text'];
+        $descriptionText = ($brand->description && $lang === null) ? $brand->description : $result->first();
 
         return view("edit")->withBrand($brand)->withDescription($descriptionText)->withMaxId($maxId);
     }
